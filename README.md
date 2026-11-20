@@ -47,3 +47,20 @@ Progress (Knowledge, upgrades, journal, hero look, best floor) is saved in the b
 ## Credits
 
 PeerJS is MIT licensed (see `PEERJS-LICENSE`).
+
+## Enemy modifiers
+
+Regular enemies can roll modifiers, more often on deeper floors. From floor 4 an enemy can have two. The name of each modifier floats above the enemy.
+
+| Modifier | Effect |
+|---|---|
+| Toxic | Leaves a toxic puddle for 5 s when defeated. It deals 1 damage per second to anyone standing in it. |
+| Quick | Attack cooldown is cut by about 55%. |
+| Stressed | Blows up in a small explosion shortly after it dies. |
+| Buff | Has +50% health and is drawn larger. |
+| Neutral | Ignores you until it is hit, then its tag changes to PROVOKED. Bots leave it alone. |
+| Leader | Has +80% health. Summons two weaker copies (35% health, smaller) after a purple warning circle, with up to 3 copies alive at once. |
+| Wise | Has a yellow outline and gives triple XP. |
+| Lucky | Drops a small chest with random chest loot. |
+
+Bosses and summoned minions never get modifiers.
