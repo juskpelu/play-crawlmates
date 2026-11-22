@@ -53,7 +53,7 @@ The room code only works while the host's lobby or run is open.
 
 ## Saves
 
-Progress (Knowledge, upgrades, journal, hero look, best floor) is saved in the browser's local storage for the site it's played on. Playing from a different address or browser starts fresh.
+Progress (Knowledge, upgrades, journal, hero look, saved skins, best floor) is saved in the browser's local storage for the site it's played on. Playing from a different address or browser starts fresh.
 
 ## Playing on a phone
 
@@ -151,6 +151,52 @@ Regular enemies can roll modifiers, more often on deeper floors. From floor 4 an
 | Lucky | Drops a small chest with random chest loot. |
 
 Bosses and summoned minions never get modifiers.
+
+## Custom skins: sprite editor and marketplace
+
+Open **Customize Hero**. The new **OUTFIT** row switches between the classic armour and any skins you've saved. Below the gear rows are two new buttons:
+
+- **SPRITE EDITOR** lets you draw your own hero. Start from the **blank template** (an empty grid with a faint hero outline to trace), copy your current classic hero, or import a PNG.
+  - A skin is **12 x 14 pixels**, the same size as the built-in heroes, with **2 frames** (standing and mid-step, which alternate as you walk) and up to **15 colours**.
+  - **Tools:** pen, eraser, fill and colour picker, plus mirror (paints both halves at once), flip, undo/redo, onion skin (shows the other frame faintly) and a copy button that puts one frame onto the other.
+  - **Colours:** pick a palette slot, then pick it again (or press COLOUR) to change it from 75 presets or any colour with MORE COLOURS. Recolouring a slot recolours every pixel that uses it.
+  - **Buttons:** SAVE keeps it in My Skins, WEAR puts it on, UPLOAD shares it, and EXPORT downloads it as a PNG. Unsaved work is kept, so closing the tab doesn't lose it.
+  - **Controls:** mouse (right-click erases), touch, keyboard (arrows + Space paint, F fill, Q/E colour, Tab frame, Ctrl+Z undo, Ctrl+S save) and controller (A paint, X erase, Y fill, LB/RB colour, RT frame, LT undo, B exit).
+- **MARKETPLACE** shows skins other players uploaded, in **NEW**, **POPULAR** (most worn) and **MY SKINS** (everything saved on this device), with a search. Pick one to **wear it**, **save it**, or **report it**. In My Skins you can wear, edit, rename, delete, upload, or take your own upload back down.
+
+Skins work everywhere heroes appear: the title screen, solo runs, the companion bot (customize Player 2), and online co-op, where everyone sees what everyone else is wearing.
+
+**Drawing in another app.** `skin-template.png` (also downloadable from the sprite editor) is a 240 x 140 grid with frame 1 on the left and frame 2 on the right. Paint each 10 x 10 square in any art app and import it. The game also reads 24 x 14 images and any whole-number size up. The grid lines and grey outline in the template are see-through enough to be ignored on import.
+
+### Switching on the marketplace (Supabase, free)
+
+The editor and My Skins work straight away. Sharing skins between players needs a small database, and the free Supabase plan is plenty.
+
+1. Make a free account at https://supabase.com and create a **new project** (any name, the region nearest your players, any database password).
+2. In the project, open **SQL Editor**, choose **New query**, paste in all of `supabase-setup.sql` and press **Run**. It should finish with "Success. No rows returned".
+3. Find the project's **URL** (it looks like `https://abcdefghijkl.supabase.co`) and its **publishable key** (starts with `sb_publishable_`). Both are under the project's **API Keys** settings or the **Connect** button. An older `anon` key also works. Never use the `secret` or `service_role` key, because that one bypasses every rule.
+4. In the GitHub repo, edit `config.js` and paste both values between the quotes, then commit. A minute later the marketplace is live.
+
+The publishable key is meant to be public. The database rules in `supabase-setup.sql` only let players read visible skins, and every upload, report, wear count or removal goes through checks:
+- names are letters and numbers only, with no blocked words;
+- skin data must be valid, and both frames must have something drawn;
+- each device can upload 5 skins an hour, each network 10 an hour;
+- exact copies of an existing skin are refused;
+- only the device that uploaded a skin can take it down.
+
+**Free projects go to sleep** after a week with too little activity. `.github/workflows/marketplace-keepalive.yml` reads one skin every two days to prevent that. It uses the values in `config.js`, so it needs no setup. If the project ever does pause, open it in the Supabase dashboard and press **Resume project**.
+
+### Moderation
+
+Skins appear in the marketplace as soon as they're uploaded. Any player can report one, and the reporter stops seeing it immediately. Once **3 different players** report the same skin it's hidden for everyone. In the Supabase dashboard's **Table Editor**:
+
+- **skins**: tick `hidden` to take a skin down, untick it to bring a wrongly reported one back (also delete its rows in **skin_reports**), tick `protected` so reports can never hide it, or delete the row to remove it for good.
+- **skin_reports**: shows who reported what and why (offensive, stolen art or spam).
+- **blocked_words**: words that can't appear in skin or creator names (spaces and symbols are ignored when checking). Add your own rows.
+
+To change the report threshold, edit `report_limit` in `supabase-setup.sql` and run the file again.
+
+Skins that people already saved stay on their devices even if you hide them in the marketplace. Hiding stops anyone new from finding them.
 
 ## Patreon button and credits page
 

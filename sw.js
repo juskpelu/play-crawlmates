@@ -1,7 +1,7 @@
 // Crawlmates service worker: always tries the network first (so updates show up straight away)
 // and falls back to the last saved copy when offline.
 const CACHE = 'crawlmates-v1';
-const FILES = ['./', './index.html', './peerjs.min.js', './manifest.webmanifest', './icon-192.png', './apple-touch-icon.png'];
+const FILES = ['./', './index.html', './config.js', './peerjs.min.js', './manifest.webmanifest', './icon-192.png', './apple-touch-icon.png'];
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).catch(() => {})); });
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch', e => {
