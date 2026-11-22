@@ -1,2 +1,4 @@
-NEXT_PUBLIC_SUPABASE_URL=https://sulldyestqgafgiyjjxx.supabase.co
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_59q8JclWxS-BeZhw9vqkcA_9YtPTQPW
+window.CRAWLMATES_CONFIG = {
+  supabaseUrl: 'https://sulldyestqgafgiyjjxx.supabase.co',
+  supabaseKey: 'sb_publishable_59q8JclWxS-BeZhw9vqkcA_9YtPTQPW'
+};
