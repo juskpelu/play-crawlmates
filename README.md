@@ -152,30 +152,70 @@ Regular enemies can roll modifiers, more often on deeper floors. From floor 4 an
 
 Bosses and summoned minions never get modifiers.
 
+## Shops and gold
+
+Every enemy drops **gold coins** (tougher monsters drop more), chests hold 5 to 8, and bosses scatter a pile. Coins fly to whoever is closest. The party shares one purse, shown under the floor number.
+
+**Shopkeepers** set up on random floors from floor 2 on, never on boss floors or in the tutorial. The chance of a shop grows with every floor since the last one, and after 4 floors without one the next floor that can have a shop always does. A shop is a lantern-lit room with no monsters in it, a shopkeeper behind a counter, and 2 to 4 wares on pedestals. Walk up to a ware to see what it is and its price, then press **E** (tap **E** on a phone, **Y** on a controller) to buy it.
+
+| Ware | What it does | Price on floor 2 |
+| --- | --- | --- |
+| Health potion | heals 2 hearts | 10 |
+| Mana elixir | refills mana | 8 |
+| Floor map | charts the whole floor | 9 |
+| Bomb satchel | +3 bombs | 14 |
+| Mystery blade | a random new sword (your old one drops) | 28 |
+| Spell tome | a spell you don't know yet | 36 |
+| Heart container | +1 max heart | 42 |
+| Ancient teachings | +1 skill point | 48 |
+| Phoenix feather | rise again once when you fall | 55 |
+
+Prices go up 12% per floor after the second. Every shop sells a health potion. The shopkeeper won't take your coin for something you can't use right now, like a potion at full health or a tome when you know every spell. In online co-op anyone can buy from the shared purse, and whoever buys gets the item.
+
+**Shopkeepers wear skins from the marketplace.** When a run starts, the game fetches up to 80 of the most worn and newest skins, and each shopkeeper picks one at random. The name of the skin and its creator show under the shopkeeper's name. Skins you've reported are never used. If the marketplace isn't connected, shopkeepers wear marketplace skins you've saved, or a classic trader outfit. In online co-op the host picks the outfit, and every player sees the same one.
+
 ## Custom skins: sprite editor and marketplace
 
 Open **Customize Hero**. The new **OUTFIT** row switches between the classic armour and any skins you've saved. Below the gear rows are two new buttons:
 
 - **SPRITE EDITOR** lets you draw your own hero. Start from the **blank template** (an empty grid with a faint hero outline to trace), copy your current classic hero, or import a PNG.
-  - A skin is **12 x 14 pixels**, the same size as the built-in heroes, with **2 frames** (standing and mid-step, which alternate as you walk) and up to **15 colours**.
-  - **Tools:** pen, eraser, fill and colour picker, plus mirror (paints both halves at once), flip, undo/redo, onion skin (shows the other frame faintly) and a copy button that puts one frame onto the other.
+  - A skin has **2 frames** (standing and mid-step, which alternate as you walk) and up to **15 colours**.
+  - **Sizes:** each frame can be **12 x 14** (the built-in heroes' size), 24 x 28, 36 x 42, 48 x 56, 60 x 70, 72 x 84, 96 x 112 or **120 x 140** (a 240 x 140 sheet for both frames). Pick it with NEW SKIN SIZE before starting, or change it any time with the size button in the editor. Going smaller merges detail, and undo brings it back.
+  - **Tools:** pen and eraser with **brush sizes** 1, 2, 3, 4, 6, 8, 12 and 16 (round from 4 up; bigger brushes unlock at bigger canvas sizes). There's also fill, a colour picker, and mirror (paints both halves at once). Rounding it out: flip, undo/redo, onion skin (shows the other frame faintly), and a copy button that puts one frame onto the other.
+  - **Zoom and move** around big canvases:
+    - mouse wheel zooms where you point;
+    - Space+drag or the middle button moves the view;
+    - Shift+wheel scrolls sideways;
+    - on a phone or tablet, pinch to zoom and drag with two fingers;
+    - the - / + buttons work everywhere.
   - **Colours:** pick a palette slot, then pick it again (or press COLOUR) to change it from 75 presets or any colour with MORE COLOURS. Recolouring a slot recolours every pixel that uses it.
   - **Buttons:** SAVE keeps it in My Skins, WEAR puts it on, UPLOAD shares it, and EXPORT downloads it as a PNG. Unsaved work is kept, so closing the tab doesn't lose it.
-  - **Controls:** mouse (right-click erases), touch, keyboard (arrows + Space paint, F fill, Q/E colour, Tab frame, Ctrl+Z undo, Ctrl+S save) and controller (A paint, X erase, Y fill, LB/RB colour, RT frame, LT undo, B exit).
+  - **Controls:**
+    - **Mouse:** right-click erases.
+    - **Touch:** one finger paints, two fingers zoom and move.
+    - **Keyboard:** arrows + Space paint, [ and ] change brush, + and - zoom, F fill, Q/E colour, Tab frame, Ctrl+Z undo, Ctrl+S save.
+    - **Controller:** A paint, X erase, Y fill, LB/RB colour, RT frame, LT undo, L3 brush, B exit.
+  - **How sharp it looks in the dungeon:** heroes are drawn at the same size whatever the skin's size, about 30 to 80 screen pixels tall depending on the screen. A 120 x 140 skin shows in full in the editor and the marketplace previews; in the dungeon the game draws it as sharp as the screen allows. While a detailed skin is on screen, the game draws at the screen's full resolution instead of its usual chunky pixels, and the rest of the game looks the same.
+  - **Detail limit:** detailed skins are stored compressed. The editor shows how much of the limit a skin uses (DATA %). Large patches of one colour take very little space, and pixel-by-pixel noise takes the most. If a skin is over 100% it can't be saved until it's simplified or made smaller.
 - **MARKETPLACE** shows skins other players uploaded, in **NEW**, **POPULAR** (most worn) and **MY SKINS** (everything saved on this device), with a search. Pick one to **wear it**, **save it**, or **report it**. In My Skins you can wear, edit, rename, delete, upload, or take your own upload back down.
 
-Skins work everywhere heroes appear: the title screen, solo runs, the companion bot (customize Player 2), and online co-op, where everyone sees what everyone else is wearing.
+Skins work everywhere heroes appear: the title screen, solo runs, the companion bot (customize Player 2), and online co-op, where everyone sees what everyone else is wearing. Detailed skins are sent to each player once when they join, so they don't slow the game down.
 
-**Drawing in another app.** `skin-template.png` (also downloadable from the sprite editor) is a 240 x 140 grid with frame 1 on the left and frame 2 on the right. Paint each 10 x 10 square in any art app and import it. The game also reads 24 x 14 images and any whole-number size up. The grid lines and grey outline in the template are see-through enough to be ignored on import.
+**Drawing in another app.** `skin-template.png` (also downloadable from the sprite editor) is a 240 x 140 sheet with frame 1 on the left and frame 2 on the right.
+- Paint each 10 x 10 square for a classic 12 x 14 skin, or use every pixel for full 120 x 140 detail.
+- The game reads any image shaped like 24 x 14 (or 12 x 14 for a single frame), at any whole-number size up.
+- It picks the smallest skin size that keeps all your detail. Put the size in the file name, as in `knight-36x42.png`, to choose it yourself. The editor's EXPORT names files that way, so they come back at the same size.
+- The grid lines and grey outline in the template are see-through enough to be ignored on import.
 
 ### Switching on the marketplace (Supabase, free)
 
 The editor and My Skins work straight away. Sharing skins between players needs a small database, and the free Supabase plan is plenty.
 
 1. Make a free account at https://supabase.com and create a **new project** (any name, the region nearest your players, any database password).
-2. In the project, open **SQL Editor**, choose **New query**, paste in all of `supabase-setup.sql` and press **Run**. It should finish with "Success. No rows returned".
+2. In the project, open **SQL Editor**, choose **New query**, paste in all of `supabase-setup.sql` and press **Run**. It should finish with "Success. No rows returned". If you set the marketplace up with an older version of this file, run the new one once more. It adds accounts and reviews and keeps your existing skins; any skins reported before go on the review list.
 3. Find the project's **URL** (it looks like `https://abcdefghijkl.supabase.co`) and its **publishable key** (starts with `sb_publishable_`). Both are under the project's **API Keys** settings or the **Connect** button. An older `anon` key also works. Never use the `secret` or `service_role` key, because that one bypasses every rule.
-4. In the GitHub repo, edit `config.js` and paste both values between the quotes, then commit. A minute later the marketplace is live.
+4. In the GitHub repo, edit `config.js` and paste both values between the quotes. Also fill in `siteUrl` with your GitHub Pages address; the desktop app reads the patron list from it. Commit, and a minute later the marketplace is live.
+5. Set the password for your HOLDEN account (see **Accounts** below).
 
 The publishable key is meant to be public. The database rules in `supabase-setup.sql` only let players read visible skins, and every upload, report, wear count or removal goes through checks:
 - names are letters and numbers only, with no blocked words;
@@ -186,17 +226,77 @@ The publishable key is meant to be public. The database rules in `supabase-setup
 
 **Free projects go to sleep** after a week with too little activity. `.github/workflows/marketplace-keepalive.yml` reads one skin every two days to prevent that. It uses the values in `config.js`, so it needs no setup. If the project ever does pause, open it in the Supabase dashboard and press **Resume project**.
 
+### Accounts
+
+Uploading a skin needs an account. Open **ACCOUNT** on the title screen to sign in or create one: a name of 3 to 12 letters, numbers or `_`, and a password of 6 or more characters. Typing happens in a real text box, so phone keyboards and password managers work.
+- **Where your account name shows:** on every skin you upload, and next to your hero in online lobbies.
+- **Name tags:** players with an account show their name (`@ALICE`) in the lobby. The creator account shows a gold **★ CREATOR** tag, and a gold star over its hero during runs.
+- **Faking it is blocked:** tags are checked against the server with a short-lived ticket, so nobody can claim to be you.
+- **Security:** passwords are stored only as bcrypt hashes. After 8 wrong passwords from one connection, sign-in from it is locked for 15 minutes.
+- **IP addresses:** each account is linked to every internet address it's used from, and each address can create at most 3 accounts a day.
+
+**Your account, HOLDEN.** `supabase-setup.sql` creates the account **HOLDEN** with the creator role, so nobody else can take the name. It has no password yet: you set it privately, so it never sits in your public repository.
+1. In Supabase's **SQL Editor**, choose **New query** and run this, with your own password:
+
+   ```sql
+   select public.acct_set_password('HOLDEN', 'your password here');
+   ```
+
+2. Don't save that query.
+3. Sign in from the game's **ACCOUNT** screen.
+
+Running the same line again changes the password and signs you out everywhere. It works for any account, if a player forgets theirs. To give someone else a tag, run `update accounts set role = 'admin' where name = 'THEIRNAME';`. Admins get a blue MOD tag, and like the creator, reports never pause them.
+
 ### Moderation
 
-Skins appear in the marketplace as soon as they're uploaded. Any player can report one, and the reporter stops seeing it immediately. Once **3 different players** report the same skin it's hidden for everyone. In the Supabase dashboard's **Table Editor**:
+Skins appear in the marketplace as soon as they're uploaded. Any player can report one, and the reporter stops seeing it immediately.
 
-- **skins**: tick `hidden` to take a skin down, untick it to bring a wrongly reported one back (also delete its rows in **skin_reports**), tick `protected` so reports can never hide it, or delete the row to remove it for good.
-- **skin_reports**: shows who reported what and why (offensive, stolen art or spam).
-- **blocked_words**: words that can't appear in skin or creator names (spaces and symbols are ignored when checking). Add your own rows.
+- **The first report** puts the skin **under review**, and **pauses its uploader**: they can't publish new skins until you've looked at it. Their account screen tells them why.
+- **Shopkeepers** never wear a skin that has been reported, even once, until you approve it. A skin with no reports can be picked straight away.
+- **Three reports** from different players also take it out of the marketplace until you review it.
+- **While a skin is under review**, its uploader can't delete it to dodge the review.
 
-To change the report threshold, edit `report_limit` in `supabase-setup.sql` and run the file again.
+**Reviewing.** The `skins_to_review` view in the Table Editor lists everything waiting, with the reasons given (offensive, stolen art or spam). Look at a skin in the game's marketplace, or paste its `data` into the editor via a saved skin. Then in the **SQL Editor** run one of:
 
-Skins that people already saved stay on their devices even if you hide them in the marketplace. Hiding stops anyone new from finding them.
+```sql
+select approve_skin('the skin id');
+select reject_skin('the skin id');
+```
+
+You can also change the skin's `review` column to `approved` or `rejected` in the Table Editor; it does the same thing.
+
+- **Approved:** the skin is protected. It's back in the marketplace, shops may use it, later reports can't hide it, and the uploader can publish again once none of their other skins are waiting.
+- **Rejected:** the skin is hidden for good.
+  - **The uploader is banned from publishing**, and so is every internet address their account has used. Any account on those addresses can't publish either, including new ones.
+  - **Every player who wore the skin in a public lobby gets a pop-up** the next time they're on a menu screen. It tells them the skin was banned and removes it from their wardrobe. The game records who wore which marketplace skin when they're in a public lobby; private lobbies and solo play aren't recorded.
+
+To lift a ban, run `select unban_account('NAME');`, which also clears the address bans. Banned players can still play, make skins for themselves and wear other people's skins.
+
+- **Address bans:** shared connections, like a school's, can be caught by an address ban. Use `unban_account` if that happens.
+- **Fake reports:** a fake report only pauses someone until you review it, and only the creator and admins are immune.
+
+Other tables: `blocked_words` (words that can't appear in skin or account names; add your own rows), `accounts` and `account_ips` (who's who), `skin_reports`, `skin_uses`, `skin_ip_bans`. To change how many reports take a skin out of the marketplace, edit `report_limit` in `supabase-setup.sql` and run the file again.
+
+## Desktop app (Windows)
+
+`Crawlmates-1.0.0-portable.exe` is the whole game as a Windows program: double-click it, no install needed. It's the same game as the website, built with Electron.
+- **Window:** F11 switches fullscreen, and Patreon and other links open in your normal browser.
+- **Voice chat:** uses the microphone after Windows asks once.
+- **Saves:** kept in the app's own data folder, separate from the browser's.
+
+Online co-op works between the app, the website and phones, since they all use the same lobbies.
+
+**Building it yourself.** The `desktop` folder is the Electron project. The easy way is GitHub:
+1. Open the **Actions** tab, pick **Build the Windows app**, and press **Run workflow**.
+2. A few minutes later, the run's page has `Crawlmates-Windows` to download, with both a portable `.exe` and an installer.
+
+That build uses your repo's `config.js`, so it connects to your marketplace. To publish a download page, push a tag like `v1.0.1`, and the same workflow creates a GitHub Release with both files.
+
+To build on your own computer, install Node.js 20, then in the `desktop` folder run `npm ci` and `npm run build:win`. The files land in `desktop/dist`. `npm start` runs the app without building.
+
+The exe in this download was built before your `config.js` had values, so its marketplace and accounts aren't connected. Rebuild it with the workflow after filling in `config.js`.
+
+Windows may show "Windows protected your PC" the first time, because the exe isn't code-signed: choose **More info → Run anyway**. Signing needs a paid certificate. If you get one, see electron-builder's docs on `win.certificateFile`.
 
 ## Patreon button and credits page
 
