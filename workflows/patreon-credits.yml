@@ -1,0 +1,61 @@
+name: Update Patreon credits
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # once a day
+  workflow_dispatch: {}    # plus a "Run workflow" button on the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: patreon-credits
+  cancel-in-progress: false
+
+jobs:
+  credits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch $5+ patrons
+        env:
+          PATREON_ACCESS_TOKEN: ${{ secrets.PATREON_ACCESS_TOKEN }}
+          PATREON_REFRESH_TOKEN: ${{ secrets.PATREON_REFRESH_TOKEN }}
+          PATREON_CLIENT_ID: ${{ secrets.PATREON_CLIENT_ID }}
+          PATREON_CLIENT_SECRET: ${{ secrets.PATREON_CLIENT_SECRET }}
+        run: python scripts/update_credits.py
+
+      # Optional: if the access token had to be refreshed, save the new tokens as secrets
+      # so tomorrow's run starts with them. Needs a SECRETS_PAT secret (see README).
+      - name: Save refreshed tokens
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}
+        run: |
+          if [ -f .new-patreon-tokens.json ]; then
+            if [ -n "$GH_TOKEN" ]; then
+              python -c "import json;print(json.load(open('.new-patreon-tokens.json'))['access_token'])" | gh secret set PATREON_ACCESS_TOKEN
+              python -c "import json;print(json.load(open('.new-patreon-tokens.json'))['refresh_token'])" | gh secret set PATREON_REFRESH_TOKEN
+              echo "Saved the refreshed Patreon tokens."
+            else
+              echo "::warning::The Patreon token was refreshed but SECRETS_PAT is not set, so the new token was not saved. Add SECRETS_PAT or paste a new token from the Patreon developer portal."
+            fi
+            rm -f .new-patreon-tokens.json
+          fi
+
+      - name: Commit credits.json if it changed
+        run: |
+          git add credits.json
+          if git diff --cached --quiet; then
+            echo "Credits unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update Patreon credits"
+            git push
+          fi

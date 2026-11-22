@@ -1,0 +1,37 @@
+name: Keep the skin marketplace awake
+
+# Supabase pauses free projects that see too little database activity in a week.
+# This reads one row every two days so the marketplace never goes to sleep.
+# It uses the same public URL and key as the game (from config.js), so there is nothing to set up.
+
+on:
+  schedule:
+    - cron: "41 14 */2 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read one skin
+        run: |
+          python3 - <<'PY'
+          import re, sys, urllib.request
+          src = open("config.js", encoding="utf-8").read()
+          url = re.search(r"supabaseUrl\s*:\s*'([^']*)'", src)
+          key = re.search(r"supabaseKey\s*:\s*'([^']*)'", src)
+          url, key = (url.group(1).strip().rstrip("/") if url else ""), (key.group(1).strip() if key else "")
+          if not url or not key:
+              print("The marketplace isn't set up in config.js yet, nothing to do.")
+              sys.exit(0)
+          headers = {"apikey": key}
+          if key.startswith("eyJ"):
+              headers["Authorization"] = "Bearer " + key
+          req = urllib.request.Request(url + "/rest/v1/skins?select=id&limit=1", headers=headers)
+          with urllib.request.urlopen(req, timeout=30) as r:
+              print("Marketplace answered with HTTP", r.status)
+          PY
