@@ -7,7 +7,7 @@ The whole game is `index.html`. `peerjs.min.js` is only used for online co-op.
 ## Put it on GitHub Pages
 
 1. Create a new public repository on GitHub (for example `crawlmates`).
-2. Upload `index.html`, `peerjs.min.js`, `PEERJS-LICENSE` and this `README.md` to the root of the repository.
+2. Upload everything in this folder to the root of the repository, including the `scripts` folder. The hidden `.github` folder is easy to miss when uploading in a browser: if it doesn't show up in the repo, see **Patreon button and credits page** below for how to add it by hand.
 3. Open **Settings → Pages**. Under **Build and deployment**, set **Source** to *Deploy from a branch*, pick **main** and **/ (root)**, and save.
 4. After a minute the game is live at `https://<your-username>.github.io/<repo-name>/`.
 
@@ -54,10 +54,6 @@ The room code only works while the host's lobby or run is open.
 ## Saves
 
 Progress (Knowledge, upgrades, journal, hero look, best floor) is saved in the browser's local storage for the site it's played on. Playing from a different address or browser starts fresh.
-
-## Credits
-
-PeerJS is MIT licensed (see `PEERJS-LICENSE`).
 
 ## Playing on a phone
 
@@ -156,6 +152,50 @@ Regular enemies can roll modifiers, more often on deeper floors. From floor 4 an
 
 Bosses and summoned minions never get modifiers.
 
+## Patreon button and credits page
+
+The home screen has a **♥ PATREON** button that opens https://www.patreon.com/cw/Crawlmates, next to a **CREDITS** button. The credits page rolls by slowly (scroll it with the arrow keys, mouse wheel, a drag on a phone or the d-pad). It shows:
+
+- **Created by Holden Slaughter**
+- **Patrons**: everyone who is an active patron at **$5 or more a month**, in alphabetical order
+- the fonts and libraries the game uses
+
+The patron names come from `credits.json`. The game loads it each time the credits open, so the list updates without changing `index.html`. If the file is missing or empty, the page says "Be the first name here!". The pixel font only has plain letters and numbers, so accents are dropped (Zoë becomes ZOE) and characters it can't draw are left out.
+
+### Keeping the list up to date automatically
+
+`.github/workflows/patreon-credits.yml` runs `scripts/update_credits.py` once a day. It asks Patreon for your members, keeps active patrons whose tier (or custom pledge) is $5 or more, and commits a new `credits.json` only when the list has changed. Pages then republishes the site by itself. Patron names are never written to the Actions log.
+
+One-time setup:
+
+1. Sign in to Patreon as the Crawlmates creator and open https://www.patreon.com/portal/registration/register-clients. Choose **Create client**; give it a name like *Crawlmates credits*. Any redirect URL works (for example your Pages address), since it isn't used.
+2. Open the new client. Copy the **Creator's Access Token**, **Creator's Refresh Token**, **Client ID** and **Client Secret**.
+3. In the GitHub repo, open **Settings → Secrets and variables → Actions → New repository secret** and add:
+   - `PATREON_ACCESS_TOKEN`: the Creator's Access Token (the only one that's required)
+   - `PATREON_REFRESH_TOKEN`, `PATREON_CLIENT_ID`, `PATREON_CLIENT_SECRET`: let the script get a new access token when the old one expires
+4. Open the **Actions** tab, pick **Update Patreon credits**, and press **Run workflow** to fill the list straight away.
+
+If the `.github` folder didn't upload: in the repo choose **Add file → Create new file**, type `.github/workflows/patreon-credits.yml` as the name, and paste in the contents of that file from this folder.
+
+**Expiring tokens.** Patreon's creator tokens stop working after a while. With the refresh token and client details saved, the script gets a new access token by itself. To store the new one for the next run, also add a `SECRETS_PAT` secret: a GitHub fine-grained personal access token for this repository with **Secrets: Read and write** permission. Without it, the run still works but shows a warning, and when the refresh token itself stops working you paste fresh tokens from the Patreon portal into the secrets.
+
+**Choosing how names appear.** Edit `credits-overrides.json`:
+
+```json
+{
+  "name_style": "full",
+  "hide": ["Name Of Someone Who Opted Out"],
+  "rename": {"Their Patreon Name": "How They Want To Be Shown"},
+  "extra": ["Someone Thanked By Hand"]
+}
+```
+
+`name_style` can be `full` (the name on their Patreon account), `first` (first name only) or `first_initial` (like *Ava T.*). Patreon names are often real names and the repo is public, so tell patrons on your tier description that $5+ patrons are listed in the game's credits, and offer to hide or rename anyone who asks.
+
+To edit the list by hand instead, change `credits.json` directly; the daily run will overwrite it, so use the overrides file for anything permanent.
+
 ## Credits
 
-The title uses the **ChickenScratch** font (© FontPanda.com, 2014). The accessibility fonts are **Atkinson Hyperlegible** (© 2020 Braille Institute of America) and **OpenDyslexic** (© Abbie Gonzalez), both under the SIL Open Font License 1.1 (see `FONTS-LICENSE.txt`). All fonts are embedded in `index.html`.
+The game is made by **Holden Slaughter**.
+
+The title uses the **ChickenScratch** font (© FontPanda.com, 2014). The accessibility fonts are **Atkinson Hyperlegible** (© 2020 Braille Institute of America) and **OpenDyslexic** (© Abbie Gonzalez), both under the SIL Open Font License 1.1 (see `FONTS-LICENSE.txt`). All fonts are embedded in `index.html`. PeerJS is MIT licensed (see `PEERJS-LICENSE`).
