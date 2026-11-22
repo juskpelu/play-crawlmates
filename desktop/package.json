@@ -1,0 +1,33 @@
+{
+  "name": "crawlmates",
+  "productName": "Crawlmates",
+  "version": "1.0.0",
+  "description": "Crawlmates, a co-op pixel dungeon crawler",
+  "author": "Holden Slaughter",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "copy-game": "node copy-game.js",
+    "start": "node copy-game.js && electron .",
+    "build:win": "node copy-game.js && electron-builder --win portable nsis --x64",
+    "build:dir": "node copy-game.js && electron-builder --win dir --x64"
+  },
+  "devDependencies": {
+    "electron": "^45.4.1",
+    "electron-builder": "^26.0.12",
+    "pe-library": "^1.0.1",
+    "resedit": "^2.0.3"
+  },
+  "build": {
+    "appId": "com.holdenslaughter.crawlmates",
+    "productName": "Crawlmates",
+    "copyright": "Holden Slaughter",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["main.js", "game/**/*", "build/icon.png"],
+    "afterPack": "build/after-pack.js",
+    "win": { "icon": "build/icon.ico", "signAndEditExecutable": false },
+    "portable": { "artifactName": "Crawlmates-${version}-portable.exe" },
+    "nsis": { "artifactName": "Crawlmates-${version}-setup.exe", "oneClick": false, "allowToChangeInstallationDirectory": true, "shortcutName": "Crawlmates", "installerIcon": "build/icon.ico", "uninstallerIcon": "build/icon.ico" }
+  }
+}
