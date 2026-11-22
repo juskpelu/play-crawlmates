@@ -4,14 +4,7 @@ A pixel dungeon crawler for up to four players: fog of war, telegraphed combat, 
 
 The whole game is `index.html`. `peerjs.min.js` is only used for online co-op.
 
-## Put it on GitHub Pages
 
-1. Create a new public repository on GitHub (for example `crawlmates`).
-2. Upload everything in this folder to the root of the repository, including the `scripts` folder. The hidden `.github` folder is easy to miss when uploading in a browser: if it doesn't show up in the repo, see **Patreon button and credits page** below for how to add it by hand.
-3. Open **Settings → Pages**. Under **Build and deployment**, set **Source** to *Deploy from a branch*, pick **main** and **/ (root)**, and save.
-4. After a minute the game is live at `https://<your-username>.github.io/<repo-name>/`.
-
-Pages are served over HTTPS, which online play needs.
 
 ## Ways to play
 
@@ -39,17 +32,6 @@ Everyone who is still standing has to be in the stairs room before anyone can go
 - Each player keeps their own look, upgrades and journal. Knowledge earned is added to each player's own save.
 - Friends can join a run that has already started (drop-in) while there's room. If someone disconnects, a bot takes over their hero, and when anyone joins again they take over that hero, keeping its level and gear.
 
-### If players can't connect
-
-Direct connections use public STUN servers, which work on most home networks. Some strict networks (some offices, schools, mobile carriers) block direct connections. If that happens:
-
-- Try a different network (for example a phone hotspot), or
-- Add a TURN relay server. In `index.html`, search for `PEER_OPTS` and add your TURN server to `iceServers`, for example:
-  ```js
-  {urls:'turn:your.turn.server:3478',username:'user',credential:'pass'}
-  ```
-
-The room code only works while the host's lobby or run is open.
 
 ## Saves
 
